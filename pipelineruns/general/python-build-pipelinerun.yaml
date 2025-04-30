@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: python-build-pipelinerun-
+spec:
+  pipelineRef:
+    name: python-build-pipeline
+  workspaces:
+    - name: workspace
+      persistentVolumeClaim:
+        claimName: shared-build-data-pvc  # Same PVC used by the checkout pipeline

@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: python-build-pipeline
+spec:
+  workspaces:
+    - name: workspace  # Shared workspace from the previous pipeline
+  tasks:
+    - name: init-permissions
+      taskRef:
+        name: init-permissions-task
+      workspaces:
+        - name: workspace
+          workspace: workspace
+    - name: python-build
+      taskRef:
+        name: python-build-task
+      runAfter:
+        - init-permissions
+      workspaces:
+        - name: workspace
+          workspace: workspace

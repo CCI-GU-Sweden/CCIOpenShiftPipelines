@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: init-permissions-task
+spec:
+  workspaces:
+    - name: workspace
+  steps:
+    - name: set-permissions
+      image: registry.access.redhat.com/ubi8/ubi
+      script: |
+        chmod -R 0777 $(workspaces.workspace.path)

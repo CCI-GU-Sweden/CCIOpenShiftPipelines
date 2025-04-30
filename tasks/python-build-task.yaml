@@ -1,0 +1,17 @@
+#calls "python -m build ." on a checked out repo. Usefull for building packages
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: python-build-task
+spec:
+  workspaces:
+    - name: workspace  # Workspace containing the checked-out repo
+
+  steps: 
+    - name: build-python-package
+      image: registry.access.redhat.com/ubi8/python-39  # Use a Python image with `build` installed
+      script: |
+        cd $(workspaces.workspace.path)
+        echo $(workspaces.workspace.path)
+        pip install build
+        python -m build .

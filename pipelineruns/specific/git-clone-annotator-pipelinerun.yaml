@@ -10,9 +10,13 @@ spec:
       value: https://github.com/xfolka/napari-cci-annotator.git
   workspaces:
     - name: shared-data
-      volumeClaimTemplate:
-        spec:
-          accessModes: [ "ReadWriteOnce" ]
-          resources:
-            requests:
-              storage: 1Gi
+      persistentVolumeClaim:
+        claimName: shared-build-data-pvc
+      subPath: annotator
+
+      # volumeClaimTemplate:
+      #   spec:
+      #     accessModes: [ "ReadWriteOnce" ]
+      #     resources:
+      #       requests:
+      #         storage: 1Gi
